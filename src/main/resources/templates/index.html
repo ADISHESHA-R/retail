@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>All Products</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fa;
+      margin: 40px;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #343a40;
+    }
+
+    a.button {
+      text-decoration: none;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      margin: 5px;
+      font-weight: bold;
+      display: inline-block;
+      transition: background-color 0.3s ease;
+    }
+
+    a.button:hover {
+      background-color: #0056b3;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      background-color: white;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #dee2e6;
+      text-align: center;
+    }
+
+    th {
+      background-color: #343a40;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #e9ecef;
+    }
+
+    .low-stock {
+      color: red;
+      font-weight: bold;
+    }
+
+    .in-stock {
+      color: green;
+      font-weight: bold;
+    }
+
+    .button-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+<h1>All Products</h1>
+
+<!-- Top Buttons -->
+<div class="button-container">
+  <a href="/products/add" class="button">Add Product</a>
+  <a href="/billing" class="button">Go to Billing</a>
+  <a href="/billing/report" class="button">Sales Report</a>
+  <div class="button-container">
+    <a href="/dashboard" class="button">DashBoard Mode</a>
+  </div>
+</div>
+
+<!-- Product Table -->
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Product Name</th>
+    <th>Price</th>
+    <th>Qty</th>
+    <th>Actions</th>
+    <th>Product Update</th>
+  </tr>
+  <tr th:each="product : ${products}">
+    <td th:text="${product.id}">ID</td>
+    <td th:text="${product.name}">Name</td>
+    <td th:text="${product.price}">Price</td>
+    <td th:text="${product.quantity}">Quantity</td>
+    <td>
+      <a th:href="@{/products/edit/{id}(id=${product.id})}" class="button">Edit</a>
+      <a th:href="@{/products/delete/{id}(id=${product.id})}" class="button" onclick="return confirm('Are you sure?');">Delete</a>
+    </td>
+    <td>
+      <span th:if="${product.quantity < 10}" class="low-stock">Low Stock</span>
+      <span th:if="${product.quantity >= 10}" class="in-stock">In Stock</span>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>

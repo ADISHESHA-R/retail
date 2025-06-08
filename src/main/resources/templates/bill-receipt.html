@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Bill Receipt</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fa;
+      margin: 40px;
+      color: #333;
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #343a40;
+    }
+
+    table {
+      width: 80%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+      padding: 12px 15px;
+      border: 1px solid #dee2e6;
+      text-align: center;
+    }
+
+    th {
+      background-color: #343a40;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #e9ecef;
+    }
+
+    p, h2 {
+      text-align: center;
+      font-size: 18px;
+      margin-top: 15px;
+    }
+
+    .button-container {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .button-link, .print-button {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 20px;
+      background-color: #6c757d;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .button-link:hover, .print-button:hover {
+      background-color: #5a6268;
+    }
+
+    @media print {
+      .button-container {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<h1>Bill Receipt</h1>
+
+<table>
+  <tr>
+    <th>Product</th>
+    <th>Qty</th>
+    <th>Price</th>
+    <th>Total</th>
+  </tr>
+  <tr th:each="item : ${bill.items}">
+    <td th:text="${item.productName}"></td>
+    <td th:text="${item.quantity}"></td>
+    <td th:text="${item.unitPrice}"></td>
+    <td th:text="${item.totalPrice}"></td>
+  </tr>
+</table>
+
+<p>Total: ₹<span th:text="${bill.totalAmount}"></span></p>
+<p>GST: ₹<span th:text="${bill.gst}"></span></p>
+<p>Discount: ₹<span th:text="${bill.discount}"></span></p>
+<h2>Net Payable: ₹<span th:text="${bill.netPayable}"></span></h2>
+
+<div class="button-container">
+  <a href="/products" class="button-link">Back to Home</a>
+  <button class="print-button" onclick="window.print()">Print as PDF</button>
+</div>
+
+</body>
+</html>

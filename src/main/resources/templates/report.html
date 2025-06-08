@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Daily Sales Report</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fa;
+      color: #333;
+      padding: 40px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #343a40;
+      margin-bottom: 30px;
+    }
+
+    p {
+      text-align: center;
+      font-size: 18px;
+      margin: 10px 0;
+    }
+
+    table {
+      width: 60%;
+      margin: 30px auto;
+      border-collapse: collapse;
+      background-color: #ffffff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+      border: 1px solid #dee2e6;
+      padding: 12px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #343a40;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #e9ecef;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .button-link, .print-button {
+      background-color: #6c757d;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .button-link:hover, .print-button:hover {
+      background-color: #5a6268;
+    }
+
+    .print-button {
+      font-family: inherit;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Today's Sales Report</h1>
+
+<p>Total Customers: <span th:text="${totalCustomers}"></span></p>
+<p>Total Revenue: ₹<span th:text="${totalRevenue}"></span></p>
+
+<table>
+  <tr>
+    <th>Date</th>
+    <th>Amount</th>
+  </tr>
+  <tr th:each="bill : ${bills}">
+    <td th:text="${bill.date}"></td>
+    <td th:text="${bill.netPayable}"></td>
+  </tr>
+</table>
+
+<div class="button-container">
+  <a href="/products" class="button-link">Back to Home</a>
+  <button class="print-button" onclick="window.print()">Print as PDF</button>
+</div>
+
+</body>
+</html>

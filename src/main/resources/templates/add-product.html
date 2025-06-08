@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title th:text="${product.id} ? 'Edit Product' : 'Add Product'"></title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fa;
+      margin: 40px;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #343a40;
+    }
+
+    form {
+      max-width: 500px;
+      margin: auto;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    a.button-link {
+      display: inline-block;
+      margin-left: 10px;
+      padding: 10px 20px;
+      background-color: #6c757d;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a.button-link:hover {
+      background-color: #5a6268;
+    }
+  </style>
+</head>
+<body>
+
+<h1 th:text="${product.id} ? 'Edit Product' : 'Add Product'"></h1>
+
+<form th:action="@{/products/{action}(action=${product.id} ? 'update' : 'add')}" method="post" th:object="${product}">
+  <label for="id">Id:</label>
+  <input type="text" th:field="*{id}" id="id" required/>
+
+  <label for="name">Name:</label>
+  <input type="text" th:field="*{name}" id="name" required />
+
+  <label for="price">Price:</label>
+  <input type="number" th:field="*{price}" id="price" required />
+
+  <label for="quantity">Quantity:</label>
+  <input type="number" th:field="*{quantity}" id="quantity" required />
+
+  <button type="submit">Save</button>
+  <a href="/products" class="button-link">Back to Home</a>
+</form>
+
+</body>
+</html>
